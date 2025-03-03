@@ -5,6 +5,8 @@ interface MediaItem {
   id: number;
   title: {
     romaji: string;
+    english: string;
+    native: string;
   };
   coverImage: {
     medium: string;
@@ -12,6 +14,7 @@ interface MediaItem {
 }
 
 const cache = new Map<string, any>();
+let inFlightRequest: Promise<any> | null = null;
 
 export function useSearch(query: string) {
   const [results, setResults] = useState<MediaItem[]>([]);
@@ -24,12 +27,17 @@ export function useSearch(query: string) {
       return;
     }
 
+    if (inFlightRequest) {
+      await inFlightRequest;
+    }
+
     setLoading(true);
     try {
-      const response = await fetch("https://graphql.anilist.co/", {
+      inFlightRequest = fetch("https://graphql.anilist.co/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Accept: "application/json",
         },
         body: JSON.stringify({
           query: `query ($search: String) {
@@ -38,6 +46,8 @@ export function useSearch(query: string) {
                 id
                 title {
                   romaji
+                  english
+                  native
                 }
                 coverImage {
                   medium
@@ -48,6 +58,8 @@ export function useSearch(query: string) {
           variables: { search: searchQuery },
         }),
       });
+
+      const response = await inFlightRequest;
 
       if (!response.ok) {
         throw new Error("Network response was not ok");
@@ -63,10 +75,11 @@ export function useSearch(query: string) {
       );
     } finally {
       setLoading(false);
+      inFlightRequest = null;
     }
   };
 
-  const debouncedFetchResults = useRef(debounce(fetchResults, 150)).current;
+  const debouncedFetchResults = useRef(debounce(fetchResults, 300)).current;
 
   useEffect(() => {
     if (query) {
