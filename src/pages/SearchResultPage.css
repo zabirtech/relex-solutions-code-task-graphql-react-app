@@ -1,0 +1,43 @@
+.search-result-page {
+  padding: 16px;
+  max-width: 800px;
+  margin: 0 auto;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.search-result-page h2 {
+  font-size: 2em;
+  margin-bottom: 16px;
+  color: #333;
+}
+
+.search-result-page p {
+  font-size: 1em;
+  line-height: 1.5;
+  color: #555;
+  margin-bottom: 12px;
+}
+
+.search-result-page img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin-bottom: 16px;
+}
+
+.search-result-page a {
+  display: inline-block;
+  margin-top: 16px;
+  padding: 8px 16px;
+  background-color: #646cff;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+.search-result-page a:hover {
+  background-color: #535bf2;
+}
