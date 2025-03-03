@@ -1,5 +1,8 @@
 import React, { createContext, useState, ReactNode } from "react";
 
+// TransparentContext: Provides a context for managing the transparency state of items.
+// This allows components to share and update the transparency state without prop drilling.
+
 interface TransparentContextType {
   toggledItems: { [id: string]: boolean };
   toggleItem: (id: string) => void;
@@ -17,10 +20,14 @@ export const TransparentProvider: React.FC<{ children: ReactNode }> = ({
     {}
   );
 
+  // toggleItem: Toggles the transparency state of an item by its ID.
+  // This function updates the state to reflect the toggled status of the item.
   const toggleItem = (id: string) => {
     setToggledItems((prev) => ({ ...prev, [id]: !prev[id] }));
   };
 
+  // resetToggled: Resets the transparency state of all items.
+  // Useful for resetting the application to its initial state.
   const resetToggled = () => {
     setToggledItems({});
   };

@@ -13,8 +13,19 @@ interface MediaItem {
   };
 }
 
+// Debouncing: Delays the execution of fetchResults to minimize API calls as the user types.
+// This reduces unnecessary network requests and improves performance.
 const cache = new Map<string, any>();
+
+// In-flight Request Management: Tracks ongoing fetch requests to prevent multiple simultaneous requests.
+// Reduces server load and potential race conditions.
 let inFlightRequest: Promise<any> | null = null;
+
+// Error Handling: Catches errors during fetch operations and stores them in the error state.
+// Ensures users are informed of any network issues, enhancing user experience.
+
+// State Management: Manages results, loading, and error states to provide feedback on the search operation's status.
+// Allows the UI to reflect the current status, such as showing loading indicators or error messages.
 
 export function useSearch(query: string) {
   const [results, setResults] = useState<MediaItem[]>([]);
@@ -79,6 +90,8 @@ export function useSearch(query: string) {
     }
   };
 
+  // Debouncing: Delays the execution of fetchResults to minimize API calls as the user types.
+  // This reduces unnecessary network requests and improves performance.
   const debouncedFetchResults = useRef(debounce(fetchResults, 300)).current;
 
   useEffect(() => {

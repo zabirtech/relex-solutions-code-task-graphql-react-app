@@ -14,7 +14,14 @@ interface SearchResultItemProps {
   };
 }
 
-const SearchResultItem: React.FC<SearchResultItemProps> = ({ item }) => {
+// SearchResultItem: Represents an individual search result item.
+// Handles user interaction for toggling transparency and navigation.
+// Uses context to manage the toggled state, allowing for shared state management across components.
+
+// handleClick: Toggles the transparency state and navigates to the detailed view of the item.
+// This function updates the context state and triggers navigation on click.
+
+function SearchResultItem({ item }: SearchResultItemProps) {
   const { toggledItems, toggleItem } = useContext(TransparentContext)!;
   const navigate = useNavigate();
 
@@ -22,7 +29,6 @@ const SearchResultItem: React.FC<SearchResultItemProps> = ({ item }) => {
 
   const handleClick = () => {
     toggleItem(item.id.toString());
-    console.log(`Item ${item.id} toggled: ${!isToggled}`);
     navigate(`/result/${item.id}`);
   };
 
@@ -39,6 +45,6 @@ const SearchResultItem: React.FC<SearchResultItemProps> = ({ item }) => {
       <h3 className="search-result-item-title">{item.title.romaji}</h3>
     </div>
   );
-};
+}
 
 export default SearchResultItem;

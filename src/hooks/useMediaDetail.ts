@@ -17,6 +17,9 @@ interface MediaDetail {
   };
 }
 
+// useMediaDetail: Custom hook to fetch detailed media information using a GraphQL query.
+// Manages loading and error states to provide feedback on the fetch operation's status.
+// This hook abstracts the logic for fetching media details, making it reusable across components.
 export const useMediaDetail = (id: number) => {
   const [media, setMedia] = useState<MediaDetail | null>(null);
   const [loading, setLoading] = useState<boolean>(true);

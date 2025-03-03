@@ -6,7 +6,7 @@ import { TransparentContext } from "../context/TransparentContext";
 import { useNavigate } from "react-router-dom";
 import "./HomePage.css";
 
-const HomePage: React.FC = () => {
+function HomePage() {
   const [query, setQuery] = useState("");
   const { results, loading, error } = useSearch(query);
   const { resetToggled } = useContext(TransparentContext)!;
@@ -36,6 +36,6 @@ const HomePage: React.FC = () => {
       )}
     </div>
   );
-};
+}
 
 export default HomePage;

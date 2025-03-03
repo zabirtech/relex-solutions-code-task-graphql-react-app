@@ -8,7 +8,11 @@ interface SearchBarProps {
   inputRef: React.RefObject<HTMLInputElement>;
 }
 
-const SearchBar: React.FC<SearchBarProps> = ({ query, setQuery, inputRef }) => {
+// SearchBar: Input component for entering search queries.
+// Uses debouncing to manage input changes, reducing the number of API calls.
+// Debouncing improves performance by limiting the frequency of function execution.
+
+function SearchBar({ query, setQuery, inputRef }: SearchBarProps) {
   useEffect(() => {
     inputRef.current?.focus();
   }, []);
@@ -25,6 +29,6 @@ const SearchBar: React.FC<SearchBarProps> = ({ query, setQuery, inputRef }) => {
       className="search-bar-input"
     />
   );
-};
+}
 
 export default SearchBar;
