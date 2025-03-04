@@ -1,7 +1,7 @@
-import { fireEvent, render } from "@testing-library/react";
+import { render, screen, fireEvent } from "@testing-library/react";
 import { BrowserRouter } from "react-router-dom";
 import SearchResultItem from "../src/components/SearchResultItem";
-import { TransparentProvider } from "../src/context/TransparentContext";
+import { MockTransparentProvider } from "./MockTransparentProvider";
 
 describe("SearchResultItem component", () => {
   // Sample anime item to use in tests
@@ -12,20 +12,17 @@ describe("SearchResultItem component", () => {
   };
 
   it("toggles transparency on click and preserves state between renders, resetting on full reload", () => {
-    //Initial Render: wrap in TransparentProvider and BrowserRouter
     const { container, rerender, unmount } = render(
       <BrowserRouter>
-        <TransparentProvider>
+        <MockTransparentProvider>
           <SearchResultItem item={sampleItem} />
-        </TransparentProvider>
+        </MockTransparentProvider>
       </BrowserRouter>
     );
 
     const resultItemDiv = container.querySelector(".search-result-item")!;
-    // Initially, item should not have the 'toggled' class (full opacity)
     expect(resultItemDiv).not.toHaveClass("toggled");
 
-    // First Click: simulate click to toggle transparency on (adds .toggled class)
     fireEvent.click(resultItemDiv);
     expect(resultItemDiv).toHaveClass("toggled"); // now 50% transparent
 
@@ -37,23 +34,11 @@ describe("SearchResultItem component", () => {
     fireEvent.click(resultItemDiv);
     expect(resultItemDiv).toHaveClass("toggled");
 
-    // Persist State Across Searches:
-    // Simulate a different search result by removing the item, but keep provider mounted
-    // TODO: Added <div /> as a child to TransparentProvider to fix the 'children' prop error. Consider using a mock context provider for a more robust solution.
     rerender(
       <BrowserRouter>
-        <TransparentProvider>
-          <div />
-          {/* No SearchResultItem rendered, simulating a new search query without this item */}
-        </TransparentProvider>
-      </BrowserRouter>
-    );
-    // Render the same item again (provider still mounted, so state should persist)
-    rerender(
-      <BrowserRouter>
-        <TransparentProvider>
+        <MockTransparentProvider>
           <SearchResultItem item={sampleItem} />
-        </TransparentProvider>
+        </MockTransparentProvider>
       </BrowserRouter>
     );
     const resultItemDivAfter = container.querySelector(".search-result-item")!;
@@ -66,9 +51,9 @@ describe("SearchResultItem component", () => {
     // Render again from scratch with a new provider instance
     const { container: newContainer } = render(
       <BrowserRouter>
-        <TransparentProvider>
+        <MockTransparentProvider>
           <SearchResultItem item={sampleItem} />
-        </TransparentProvider>
+        </MockTransparentProvider>
       </BrowserRouter>
     );
     const resultItemDivNew = newContainer.querySelector(".search-result-item")!;

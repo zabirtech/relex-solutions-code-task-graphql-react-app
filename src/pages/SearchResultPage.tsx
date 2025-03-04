@@ -1,9 +1,8 @@
-import React from "react";
-import { useParams, Link } from "react-router-dom";
-import "./SearchResultPage.css";
+import { Link, useParams } from "react-router-dom";
 import { useMediaDetail } from "../hooks/useMediaDetail";
+import "./SearchResultPage.css";
 
-const SearchResultPage: React.FC = () => {
+const SearchResultPage = () => {
   const { id } = useParams<{ id: string }>();
   const { media, loading, error } = useMediaDetail(Number(id));
 

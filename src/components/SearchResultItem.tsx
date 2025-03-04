@@ -1,6 +1,7 @@
-import React, { useContext } from "react";
+import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { TransparentContext } from "../context/TransparentContext";
+import { Link } from "react-router-dom";
 
 interface SearchResultItemProps {
   item: {
@@ -43,6 +44,7 @@ function SearchResultItem({ item }: SearchResultItemProps) {
         className="search-result-item-img"
       />
       <h3 className="search-result-item-title">{item.title.romaji}</h3>
+      <Link data-testid="result-link" to={`/anime/${item.id}`}></Link>
     </div>
   );
 }

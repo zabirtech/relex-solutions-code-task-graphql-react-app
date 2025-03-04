@@ -24,15 +24,16 @@ const LoadingSpinner = () => (
   </div>
 );
 
-const SearchResults: React.FC<SearchResultsProps> = ({ items, loading }) => {
+const SearchResults = React.memo(({ items, loading }: SearchResultsProps) => {
+  if (loading) return <LoadingSpinner />;
+
   return (
     <div className="results-grid">
       {items.map((item) => (
         <SearchResultItem key={item.id} item={item} />
       ))}
-      {loading && <LoadingSpinner />}
     </div>
   );
-};
+});
 
 export default SearchResults;
