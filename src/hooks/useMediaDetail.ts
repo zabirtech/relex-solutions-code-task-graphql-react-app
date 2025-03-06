@@ -57,7 +57,12 @@ export const useMediaDetail = (id: number) => {
         variables: { id },
       }),
     })
-      .then((res) => res.json())
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error(`Network response was not ok: ${res.statusText}`);
+        }
+        return res.json();
+      })
       .then((data) => {
         setMedia(data.data.Media);
         setLoading(false);

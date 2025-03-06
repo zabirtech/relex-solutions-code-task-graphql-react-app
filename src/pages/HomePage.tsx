@@ -1,9 +1,9 @@
-import React, { useState, useContext, useEffect, useRef } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import SearchBar from "../components/SearchBar";
 import SearchResults from "../components/SearchResults";
-import { useSearch } from "../hooks/useSearch";
 import { TransparentContext } from "../context/TransparentContext";
-import { useNavigate } from "react-router-dom";
+import { useSearch } from "../hooks/useSearch";
 import "./HomePage.css";
 
 function HomePage() {

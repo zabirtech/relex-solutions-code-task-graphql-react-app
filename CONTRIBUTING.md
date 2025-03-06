@@ -16,10 +16,8 @@ Thank you for considering contributing to our project! We welcome contributions 
 
 ## TODOs and Areas for Improvement
 
-- **Mock Context Provider:** Consider implementing a mock context provider for `TransparentProvider` in tests to avoid using placeholder children like `<div />`.
+- **To many API requests:** sometimes with to many requests need to look into that perhaps limit number of items rendered by the server.
 - **CSS Improvements:** Review and refactor CSS for better maintainability and to ensure consistent styling across components.
-- **Error Handling:** Implement comprehensive error handling for API calls in `useSearch` and `useMediaDetail` hooks.
-- **Performance Optimization:** Investigate potential performance optimizations, such as memoizing expensive calculations or using `React.memo` for components that do not need to re-render frequently.
 - **Accessibility:** Conduct an accessibility audit to ensure the application is accessible to all users, including those using screen readers.
 
 ## Pull Request Process

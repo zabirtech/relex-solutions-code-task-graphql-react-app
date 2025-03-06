@@ -13,9 +13,9 @@ export const TransparentContext = createContext<
   TransparentContextType | undefined
 >(undefined);
 
-export const TransparentProvider: React.FC<{ children: ReactNode }> = ({
-  children,
-}) => {
+// TransparentProvider: Provides the context to its children, managing the toggled state of items.
+// It includes functions to toggle individual items and reset all items.
+export const TransparentProvider = ({ children }: { children: ReactNode }) => {
   const [toggledItems, setToggledItems] = useState<{ [id: string]: boolean }>(
     {}
   );

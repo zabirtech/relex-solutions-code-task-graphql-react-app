@@ -1,10 +1,9 @@
-import React from "react";
-import { Routes, Route } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
+import { TransparentProvider } from "./context/TransparentContext";
 import HomePage from "./pages/HomePage";
 import SearchResultPage from "./pages/SearchResultPage";
-import { TransparentProvider } from "./context/TransparentContext";
 
-const App: React.FC = () => {
+const App = () => {
   return (
     <TransparentProvider>
       <Routes>
