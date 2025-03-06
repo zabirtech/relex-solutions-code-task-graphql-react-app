@@ -1,6 +1,5 @@
-import React, { useRef, useEffect } from "react";
+import React, { useEffect } from "react";
 import "./SearchBar.css";
-import { debounce } from "../utils/debounce";
 
 interface SearchBarProps {
   query: string;
@@ -17,7 +16,8 @@ function SearchBar({ query, setQuery, inputRef }: SearchBarProps) {
     inputRef.current?.focus();
   }, []);
 
-  const debouncedSetQuery = useRef(debounce(setQuery, 150)).current;
+  // removed debounceSetQuery since it was not needed the debounce was already in the setQuery function
+  // and it was causing the search to not work as expected now you can type fast !
 
   return (
     <input
@@ -25,7 +25,7 @@ function SearchBar({ query, setQuery, inputRef }: SearchBarProps) {
       type="text"
       placeholder="Search for anime..."
       value={query}
-      onChange={(e) => debouncedSetQuery(e.target.value)}
+      onChange={(e) => setQuery(e.target.value)}
       className="search-bar-input"
     />
   );
