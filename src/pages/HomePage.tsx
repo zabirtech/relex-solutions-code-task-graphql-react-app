@@ -1,5 +1,5 @@
 import { useContext, useEffect, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import SearchBar from "../components/SearchBar";
 import SearchResults from "../components/SearchResults";
 import { TransparentContext } from "../context/TransparentContext";
@@ -7,7 +7,12 @@ import { useSearch } from "../hooks/useSearch";
 import "./HomePage.css";
 
 function HomePage() {
-  const [query, setQuery] = useState("");
+  // Retrieve the query parameter from the URL.
+  const [searchParams, setSearchParams] = useSearchParams();
+  const initialQuery = searchParams.get("q") || "";
+  const [query, setQuery] = useState(initialQuery);
+
+  // Use our search hook with the current query.
   const { results, loading, error } = useSearch(query);
   const { resetToggled } = useContext(TransparentContext)!;
   const navigate = useNavigate();
@@ -16,6 +21,15 @@ function HomePage() {
   useEffect(() => {
     inputRef.current?.focus();
   }, []);
+
+  // Update the URL search parameter whenever the query changes.
+  useEffect(() => {
+    if (query) {
+      setSearchParams({ q: query });
+    } else {
+      setSearchParams({});
+    }
+  }, [query, setSearchParams]);
 
   const handleReset = () => {
     setQuery("");
