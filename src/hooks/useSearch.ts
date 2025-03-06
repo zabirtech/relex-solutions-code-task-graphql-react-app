@@ -53,7 +53,7 @@ export function useSearch(query: string) {
         body: JSON.stringify({
           query: `query ($search: String) {
             Page(perPage: 20) {
-              media(search: $search, type: ANIME) {
+              media(search: $search, type: ANIME, isAdult: false) {
                 id
                 title {
                   romaji

@@ -36,7 +36,7 @@ export const useMediaDetail = (id: number) => {
       body: JSON.stringify({
         query: `
           query ($id: Int) {
-            Media(id: $id, type: ANIME) {
+            Media(id: $id, type: ANIME, isAdult: false) {
               id
               title {
                 romaji
